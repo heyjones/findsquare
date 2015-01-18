@@ -36,7 +36,7 @@
 						var minivenues = data.response.minivenues;
 						$(minivenues).each(function(i, minivenue){
 							console.log(minivenue);
-							result = result + '<li class="findsquare-result"><a href="#" data-name="' + minivenue.name + '" data-address="' + minivenue.location.address + '" data-city="' + minivenue.location.city + '" data-state="' + minivenue.location.state + '" data-postalCode="' + minivenue.location.postalCode + '" data-country="' + minivenue.location.country + '"><strong>' + 
+							result = result + '<li class="findsquare-result"><a href="#" class="findsquare-venue" data-name="' + minivenue.name + '" data-address="' + minivenue.location.address + '" data-city="' + minivenue.location.city + '" data-state="' + minivenue.location.state + '" data-postalCode="' + minivenue.location.postalCode + '" data-country="' + minivenue.location.country + '"><strong>' + 
 								minivenue.name + '</strong> ' + 
 								minivenue.location.address + ' ' + 
 								minivenue.location.city + ', ' + 
@@ -50,10 +50,16 @@
 			}
 		});
 		
-		$('.findsquare-result').click(function(e){
+		$('.findsquare-venue').click(function(e){
 			e.preventDefault();
 			alert('!');
 			console.log($(this).data('name'));
+			$('.' + settings.name).val($(this).data('name'));
+			$('.' + settings.address).val($(this).data('address'));
+			$('.' + settings.city).val($(this).data('city'));
+			$('.' + settings.state).val($(this).data('state'));
+			$('.' + settings.postalCode).val($(this).data('postalCode'));
+			$('.' + settings.country).val($(this).data('country'));
 		});
 
 	};
