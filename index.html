@@ -1,12 +1,30 @@
 <html>
 	<head>
 		<title>Findsquare</title>
-		<link href="css/findsquare.css">
+		<link href="css/findsquare.css" rel="stylesheet">
 	</head>
 	<body>
 		<h1>Findsquare</h1>
-		<input type="text" class="findsquare">
+		<label for="name">Name</label>
+		<input type="text" name="name" id="name" data-findsquare="name"><br>
+		<label for="address">Address</label>
+		<input type="text" name="address" id="address" data-findsquare="address"><br>
+		<label for="city">City</label>
+		<input type="text" name="city" id="city" data-findsquare="city"><br>
+		<label for="state">State</label>
+		<input type="text" name="state" id="state" data-findsquare="state"><br>
+		<label for="zip">Zip</label>
+		<input type="text" name="zip" id="zip" data-findsquare="postalCode"><br>
+		<label for="country">Country</label>
+		<input type="text" name="country" id="country" data-findsquare="country"><br>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="js/findsquare.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#name').findsquare({
+					intent: 'global'
+				});
+			});
+		</script>
 	</body>
 </html>
