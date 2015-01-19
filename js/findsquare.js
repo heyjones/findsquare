@@ -19,13 +19,17 @@
 		$(this).focus(function(){
 			$('.findsquare-results').show();
 		});
-
 		$(this).blur(function(){
-			$('.findsquare-results').hide();
+			setTimeout(function(){
+				$('.findsquare-results').hide();
+			}, 100);
 		});
 
 		$(this).keydown(function(){
-			if($(this).val().length > 3){
+			if($(this).val().length < 3){
+				$('.findsquare-results').hide();
+			}else{
+				$('.findsquare-results').show();
 				$.getJSON('https://api.foursquare.com/v2/venues/suggestcompletion', {
 						intent: settings.intent,
 						oauth_token: settings.oauth_token,
@@ -36,7 +40,7 @@
 						var minivenues = data.response.minivenues;
 						$(minivenues).each(function(i, minivenue){
 							console.log(minivenue);
-							result = result + '<li class="findsquare-result"><a href="#" class="findsquare-venue" data-name="' + minivenue.name + '" data-address="' + minivenue.location.address + '" data-city="' + minivenue.location.city + '" data-state="' + minivenue.location.state + '" data-postalCode="' + minivenue.location.postalCode + '" data-country="' + minivenue.location.country + '"><strong>' + 
+							result = result + '<li class="findsquare-result"><a href="#" class="findsquare-venue" data-name="' + minivenue.name + '" data-address="' + minivenue.location.address + '" data-city="' + minivenue.location.city + '" data-state="' + minivenue.location.state + '" data-zip="' + minivenue.location.postalCode + '" data-country="' + minivenue.location.country + '"><strong>' + 
 								minivenue.name + '</strong> ' + 
 								minivenue.location.address + ' ' + 
 								minivenue.location.city + ', ' + 
@@ -50,16 +54,14 @@
 			}
 		});
 		
-		$('.findsquare-venue').click(function(e){
+		$(document).on('click', '.findsquare-venue', function(e){
 			e.preventDefault();
-			alert('!');
-			console.log($(this).data('name'));
-			$('.' + settings.name).val($(this).data('name'));
-			$('.' + settings.address).val($(this).data('address'));
-			$('.' + settings.city).val($(this).data('city'));
-			$('.' + settings.state).val($(this).data('state'));
-			$('.' + settings.postalCode).val($(this).data('postalCode'));
-			$('.' + settings.country).val($(this).data('country'));
+			$('*[data-findsquare="name"]').val($(this).data('name'));
+			$('*[data-findsquare="address"]').val($(this).data('address'));
+			$('*[data-findsquare="city"]').val($(this).data('city'));
+			$('*[data-findsquare="state"]').val($(this).data('state'));
+			$('*[data-findsquare="zip"]').val($(this).data('zip'));
+			$('*[data-findsquare="country"]').val($(this).data('country'));
 		});
 
 	};
